@@ -1,0 +1,12 @@
+browser->browser: notes.push(note)
+
+note over browser:
+browser rerenders note list on the page
+end note
+
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+server-->browser: HTTP status code 201
+
+note over browser:
+browser does not need to refresh
+end note
