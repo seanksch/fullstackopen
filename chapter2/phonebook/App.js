@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Filter = ({ nameFilter, setNameFilter }) => {
 
@@ -18,7 +19,7 @@ const Filter = ({ nameFilter, setNameFilter }) => {
   )
 }
 
-const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNewNumber}) => {
+const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -60,17 +61,17 @@ const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNew
   )
 }
 
-const Persons = ({persons, nameFilter}) => {
+const Persons = ({ persons, nameFilter }) => {
   const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(nameFilter.toLowerCase()))
 
   return (
     <div>
-    {filteredPersons.map(person => <Person key={person.name} person={person} />)}
+      {filteredPersons.map(person => <Person key={person.name} person={person} />)}
     </div>
   )
 }
 
-const Person = ({person}) => <div>{person.name} {person.number}</div>
+const Person = ({ person }) => <div>{person.name} {person.number}</div>
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -82,6 +83,17 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
+
+  useEffect(() => {
+    console.log('get persons')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        setPersons(response.data)
+      })
+  }, [])
+  console.log('render', persons.length, 'persons')
 
   return (
     <div>
