@@ -20,7 +20,7 @@ const Filter = ({ nameFilter, setNameFilter }) => {
   )
 }
 
-const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber, setMessage }) => {
+const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber, setMessage, setMessageType }) => {
 
   const handleNameChange = (event) => {
     // console.log(event.target.value)
@@ -64,6 +64,14 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
           setNewName('')
           setNewNumber('')
           newMessage()
+        })
+        .catch(error => {
+          setMessageType('error')
+          setMessage(`${error.response.data.error}`)
+          setTimeout(() => {
+            setMessage(null)
+            setMessageType(null)
+          }, 5000)
         })
     }
   }
@@ -133,13 +141,13 @@ const Notification = ({ message, messageType }) => {
     return null
   }
 
-  if (messageType==='error'){
+  if (messageType === 'error') {
     return <div className='messageError'>{message}</div>
   } else {
     return <div className='message'>{message}</div>
   }
 
-  
+
 
 }
 
@@ -172,7 +180,7 @@ const App = () => {
       <Notification message={message} messageType={messageType} />
       <Filter nameFilter={nameFilter} setNameFilter={setNameFilter} />
       <h2>add a new</h2>
-      <PersonForm persons={persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} setMessage={setMessage} />
+      <PersonForm persons={persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} setMessage={setMessage} setMessageType={setMessageType} />
       <h2>Numbers</h2>
       <Persons persons={persons} nameFilter={nameFilter} setPersons={setPersons} setMessage={setMessage} setMessageType={setMessageType} />
     </div>
