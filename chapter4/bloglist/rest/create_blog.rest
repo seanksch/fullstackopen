@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNlYW5DaHVhMTciLCJpZCI6IjVmMTgzNjllODM5NWIyYTQxNDA0MDAzZiIsImlhdCI6MTU5NTQyMjcwMX0.bn3FvcWJ4hi1O5l_xO1j-3JOD1nSLUhOJZbWVJ09H7Y
+
+{
+    "author": "SeanChua",
+    "title": "bootstrap",
+    "url": "http",
+    "likes": 10
+}
